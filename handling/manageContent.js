@@ -148,11 +148,12 @@ module.exports = {
       
       const contentInfo = prevContentList.find((v) => v.name === contentName)
       
-      
-      if (contentInfo.plan_userId !== interaction.user.id || !interaction.member.roles.cache.some(role => role.id === process.env.MANAGER_ROLE_ID)) {
-        return interaction.editReply({
-          content: "해당 컨텐츠 삭제 권한이 없습니다. 기획자 혹은 팀장님께 문의하세요."
-        })
+      if (contentInfo.plan_userId !== interaction.user.id) {
+        if (!interaction.member.roles.cache.some(role => role.id === process.env.MANAGER_ROLE_ID)) {
+          return interaction.editReply({
+            content: "해당 컨텐츠 삭제 권한이 없습니다. 기획자 혹은 팀장님께 문의하세요."
+          })
+        }
       }
 
       if (!contentInfo.status === STATUS.PRE_PLAN) {
