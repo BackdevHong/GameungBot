@@ -7,7 +7,8 @@ const {
 const dotenv = require("dotenv");
 const { registerCommands } = require("./deploy-commands");
 const { addContent, editContent } = require("./handling/manageContent");
-const contentList = require("./content.json")
+const contentList = require("./content.json");
+const manageContent = require("./handling/manageContent");
 
 dotenv.config();
 
@@ -47,6 +48,9 @@ client.on(Events.InteractionCreate, async (interaction) => {
         break;
       case "수정":
         editContent(interaction)
+        break;
+      case "관리":
+        manageContent(interaction)
         break;
       default:
         break;

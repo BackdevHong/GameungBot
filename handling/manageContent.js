@@ -121,7 +121,15 @@ module.exports = {
       content: "수정이 완료되었습니다."
     })
   },
+  /**
+   * 
+   * @param {import("discord.js").ChatInputCommandInteraction} interaction 
+   */
   manageContent : async (interaction) => {
+    await interaction.deferReply({
+      ephemeral: true
+    })
+
     
   }
 }
