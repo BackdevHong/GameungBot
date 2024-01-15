@@ -2,49 +2,56 @@ const {SlashCommandBuilder, REST, Routes, PermissionFlagsBits, ChannelType, Slas
 
 const commands = [
     new SlashCommandBuilder()
-        .setName('등록')
-        .setDescription('등록 관련 명령어입니다')
-        .addStringOption(
-            opt => opt
-                .setName("이름")
-                .setDescription("컨텐츠 이름을 넣어주세요!")
-                .setRequired(true)
+        .setName("기획")
+        .setDescription("기획 관련 명령어입니다.")
+        .addSubcommand(
+            sub => sub
+                .setName('등록')
+                .setDescription('등록 관련 명령어입니다')
+                .addStringOption(
+                    opt => opt
+                        .setName("이름")
+                        .setDescription("컨텐츠 이름을 넣어주세요!")
+                        .setRequired(true)
+                )
+                .addStringOption(
+                    opt => opt
+                        .setName("설명")
+                        .setDescription("간단한 컨텐츠 설명을 넣어주세요!")
+                        .setRequired(true)
+                )
+                .addStringOption(
+                    opt => opt
+                        .setName("url")
+                        .setDescription("기획본 URL을 넣어주세요! ( 노션, Google Docs 등 )")
+                )
         )
-        .addStringOption(
-            opt => opt
-                .setName("설명")
-                .setDescription("간단한 컨텐츠 설명을 넣어주세요!")
-                .setRequired(true)
-        )
-        .addStringOption(
-            opt => opt
-                .setName("url")
-                .setDescription("기획본 URL을 넣어주세요! ( 노션, Google Docs 등 )")
-        ),
-    new SlashCommandBuilder()
-        .setName('수정')
-        .setDescription('수정 관련 명령어입니다')
-        .addStringOption(
-            opt => opt
-                .setName("컨텐츠")
-                .setDescription("수정할 컨텐츠 이름을 입력해주세요!")
-                .setRequired(true)
-                .setAutocomplete(true)
-        )
-        .addStringOption(
-            opt => opt
-                .setName("이름")
-                .setDescription("새로운 컨텐츠 이름을 넣어주세요!")
-        )
-        .addStringOption(
-            opt => opt
-                .setName("설명")
-                .setDescription("새로운 설명을 적어주세요!")
-        )
-        .addStringOption(
-            opt => opt
-                .setName("url")
-                .setDescription("새로운 기획본 URL을 적어주세요!")
+        .addSubcommand(
+            sub => sub
+                .setName('수정')
+                .setDescription('수정 관련 명령어입니다')
+                .addStringOption(
+                    opt => opt
+                        .setName("컨텐츠")
+                        .setDescription("수정할 컨텐츠 이름을 입력해주세요!")
+                        .setRequired(true)
+                        .setAutocomplete(true)
+                )
+                .addStringOption(
+                    opt => opt
+                        .setName("이름")
+                        .setDescription("새로운 컨텐츠 이름을 넣어주세요!")
+                )
+                .addStringOption(
+                    opt => opt
+                        .setName("설명")
+                        .setDescription("새로운 설명을 적어주세요!")
+                )
+                .addStringOption(
+                    opt => opt
+                        .setName("url")
+                        .setDescription("새로운 기획본 URL을 적어주세요!")
+                )
         ),
     new SlashCommandBuilder()
         .setName('관리')

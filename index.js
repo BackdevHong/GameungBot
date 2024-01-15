@@ -42,11 +42,8 @@ client.on(Events.InteractionCreate, async (interaction) => {
   
   if (interaction.isCommand()) {
     switch (interaction.commandName) {
-      case "등록":
+      case "기획":
         addContent(interaction)
-        break;
-      case "수정":
-        editContent(interaction)
         break;
       case "관리":
         manageContent(interaction)
