@@ -2,7 +2,7 @@ const { ChannelType } = require("discord.js")
 const contentList = require("../content.json")
 const dotenv = require("dotenv")
 const fs = require("fs")
-const { infoEmbed } = require("../embed/contentInfo")
+const { infoEmbed, alertEmbed } = require("../embed/contentInfo")
 
 dotenv.config()
 
@@ -129,7 +129,63 @@ module.exports = {
     await interaction.deferReply({
       ephemeral: true
     })
-
     
+    const prevContentList = contentList
+    const content = prevContentList.find(v => v.channelId === interaction.channel.id)
+
+    if (content === undefined || content === null) {
+      return interaction.editReply({
+        content: "해당 채널에서 사용할 수 없는 명령어입니다. 기획방에서 사용해주세요!"
+      })
+    }
+
+    if (interaction.options.getSubcommandGroup() === "제작자") {
+      if (interaction.options.getSubcommand() === "지정") {
+        const makerType = interaction.options.getString("제작타입")
+        const maker = interaction.options.getUser("유저")
+
+        if (content.creator[makerType].some(v => v === maker.id)) {
+          return interaction.editReply({
+            content: "이미 지정되어 있는 제작자입니다."
+          })
+        }
+
+        content.creator[makerType].push(maker.id)
+        const channel = interaction.guild.channels.cache.get(content.channelId)
+
+        channel.send({
+          embeds : [alertEmbed("지정", maker.id, makerType.toUpperCase())]
+        })
+        fs.writeFileSync("./content.json", JSON.stringify(prevContentList))
+        return interaction.editReply({
+          content: "성공적으로 지정하였습니다."
+        })
+      }
+      
+      if (interaction.options.getSubcommand() === "제외") {
+        const makerType = interaction.options.getString("제작타입")
+        const maker = interaction.options.getUser("유저")
+        const findUser = content.creator[makerType].some(v => v === maker.id)
+        console.log(findUser)
+
+        if (!findUser) {
+          return interaction.editReply({
+            content: "해당 사용자는 지정되어 있지 않습니다."
+          })
+        }
+
+        const findIndex = content.creator[makerType].indexOf(maker.id);
+        content.creator[makerType].splice(findIndex, 1)
+        const channel = interaction.guild.channels.cache.get(content.channelId)
+
+        channel.send({
+          embeds : [alertEmbed("제거", maker.id, makerType.toUpperCase())]
+        })
+        fs.writeFileSync("./content.json", JSON.stringify(prevContentList))
+        return interaction.editReply({
+          content: "성공적으로 제거하였습니다."
+        })
+      }
+    }
   }
 }

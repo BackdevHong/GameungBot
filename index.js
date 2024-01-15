@@ -6,9 +6,8 @@ const {
 } = require("discord.js");
 const dotenv = require("dotenv");
 const { registerCommands } = require("./deploy-commands");
-const { addContent, editContent } = require("./handling/manageContent");
+const { addContent, editContent, manageContent } = require("./handling/manageContent");
 const contentList = require("./content.json");
-const manageContent = require("./handling/manageContent");
 
 dotenv.config();
 

@@ -24,5 +24,26 @@ module.exports = {
     }
     
     return embed
+  },
+  alertEmbed: (alertContent, user, contentType) => {
+    const embed = new EmbedBuilder()
+      .setTitle(`안내`)
+      .setDescription("새로운 알림이 있습니다!")
+      .addFields({
+        name: "안내 내용",
+        value: `${alertContent === "지정" ? "새롭게 지정된 제작자가 있습니다." : "지정에서 제외된 제작자가 있습니다."}`
+      },
+      {
+        name: "제작자 분야",
+        value: `${contentType}`,
+        inline: true
+      },
+      {
+        name: "유저",
+        value: `<@${user}>`,
+        inline: true
+      })
+
+      return embed
   }
 }
