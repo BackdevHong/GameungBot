@@ -56,6 +56,7 @@ module.exports = {
       const newChannel = channel.threads.create({
         name : `${name} - ${interaction.user.displayName}`,
         message: {
+          content: `<@&${process.env.MANAGER_ROLE_ID}>`,
           embeds: [infoEmbed(newJson)]
         },
         reason: "새로운 컨텐츠 기획본 생성"
