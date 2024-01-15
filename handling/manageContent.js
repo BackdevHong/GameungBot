@@ -342,7 +342,7 @@ module.exports = {
         const resourcePackTeam = contentInfo.creator.resourcePack.map((v) => `<@${v}>`)
         
         await interaction.guild.channels.create({
-          name: `${contentInfo.name}-${user.displayName}`,
+          name: `${contentInfo.name}`,
           type: ChannelType.GuildText,
           parent: category.id
         }).then((v) => {
