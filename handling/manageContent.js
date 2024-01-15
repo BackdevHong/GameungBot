@@ -156,7 +156,7 @@ module.exports = {
         }
       }
 
-      if (!contentInfo.status === STATUS.PRE_PLAN) {
+      if (!contentInfo.status !== STATUS.PRE_PLAN) {
         return interaction.editReply({
           content: "해당 컨텐츠는 삭제할 수 없습니다."
         })
