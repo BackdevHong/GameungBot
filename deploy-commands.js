@@ -52,6 +52,18 @@ const commands = [
                         .setName("url")
                         .setDescription("새로운 기획본 URL을 적어주세요!")
                 )
+        )
+        .addSubcommand(
+            sub => sub
+                .setName("삭제")
+                .setDescription("기획본을 삭제합니다.")
+                .addStringOption(
+                    opt => opt
+                        .setName("컨텐츠")
+                        .setDescription("수정할 컨텐츠 이름을 입력해주세요!")
+                        .setRequired(true)
+                        .setAutocomplete(true)
+                )
         ),
     new SlashCommandBuilder()
         .setName('관리')
@@ -137,6 +149,42 @@ const commands = [
                                 .setDescription("유저를 기입해주세요.")
                                 .setRequired(true)
                         )
+                )
+        )
+        .addSubcommand(
+            grp => grp
+                .setName("상태")
+                .setDescription("상태를 변경하는 명령어입니다")
+                .addStringOption(
+                    opt => opt
+                        .setName("컨텐츠")
+                        .setDescription("컨텐츠를 선택해주세요.")
+                        .setRequired(true)
+                        .setAutocomplete(true)
+                )
+                .addStringOption(
+                    opt => opt
+                        .setName("상태")
+                        .setDescription("변경할 상태를 기입해주세요.")
+                        .setChoices(
+                            {
+                                name: "기획",
+                                value: "PLANING"
+                            },
+                            {
+                                name: "제작",
+                                value: "RUNNING"
+                            },
+                            {
+                                name: "완료",
+                                value: "ENDING"
+                            },
+                            {
+                                name: "업그레이드",
+                                value: "UPGRADING"
+                            }
+                        )
+                        .setRequired(true)
                 )
         )
 

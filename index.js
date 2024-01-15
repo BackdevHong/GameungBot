@@ -6,7 +6,7 @@ const {
 } = require("discord.js");
 const dotenv = require("dotenv");
 const { registerCommands } = require("./deploy-commands");
-const { addContent, editContent, manageContent } = require("./handling/manageContent");
+const { addContent, editContent, manageContent, planingManage } = require("./handling/manageContent");
 const contentList = require("./content.json");
 
 dotenv.config();
@@ -43,7 +43,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
   if (interaction.isCommand()) {
     switch (interaction.commandName) {
       case "기획":
-        addContent(interaction)
+        planingManage(interaction)
         break;
       case "관리":
         manageContent(interaction)
