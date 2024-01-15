@@ -3,11 +3,19 @@ const {
     GatewayIntentBits,
     Events,
     Partials,
+    ChannelType,
 } = require("discord.js");
 const dotenv = require("dotenv");
 const { registerCommands } = require("./deploy-commands");
-const { addContent, editContent, manageContent, planingManage } = require("./handling/manageContent");
+const { manageContent, planingManage } = require("./handling/manageContent");
 const contentList = require("./content.json");
+const schedule = require('node-schedule')
+const dayjs = require('dayjs')
+const rule = new schedule.RecurrenceRule();
+
+rule.dayOfWeek = [6]
+rule.hour = 20
+rule.minute = 0
 
 dotenv.config();
 
@@ -55,4 +63,20 @@ client.on(Events.InteractionCreate, async (interaction) => {
 })
 
 client.login(process.env.TOKEN);
-  
+
+const job = schedule.scheduleJob(rule, () => {
+  const today = dayjs().format("YYYY-MM-DD")
+  const guild = client.guilds.fetch(process.env.GUILD_ID).then((v) => {
+    const category = v.channels.cache.get(process.env.CATEGORY_MEETING)
+    const newC = v.channels.create({
+      name: `${today}`,
+      content: `<@everyone>`,
+      parent: category.id,
+      type: ChannelType.GuildText
+    }).then((v) => {
+      console.log(v)
+    }).catch((e) => {
+      console.log(e)
+    })
+  })
+})
