@@ -349,7 +349,7 @@ module.exports = {
           contentInfo.channelId = v.id
           v.send({
             content: `새로운 기획안입니다! 제작자분들은 확인해주시기 바랍니다!` +
-            `\n- 컨텐츠 이름 : [ ${contentInfo.name} ]`+
+            `\n- 컨텐츠 이름 : [ [${contentInfo.name}](${contentInfo.plan_url}) ]`+
             `\n- 컨텐츠 기획 담당자 : <@${contentInfo.plan_userId}>`+
             `\n- 컨텐츠 제작자`+
             `\n - 시스템(스크립트, 플러그인) 제작자 : ${systemTeam.length > 0 ? systemTeam : "없음"}`+
